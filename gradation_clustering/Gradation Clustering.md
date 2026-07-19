@@ -1,12 +1,6 @@
-June28-Gradation_Clustering
+June20 - "Gradation" Clustering
 
-First read the files starting with 00 and 01 and then come back here to read this prompt. 
-
-This a multi-step multi part task that requires careful assessment. If necessary, you can go back and forth between the prompt and the documents to take a look at the contents from a different perspective and then search online for proper literature. But please don't fail me. Read the attachments. Understand my situation. Take your time and help. I am confused and exhausted. 
-
-Since you would have got a very good idea of what I am trying to do in the project, I've got a question for you. In fact, it's a two part question - one main question and another side track {if required you can split and perform the task in parallel}. 
-
-You would have noticed that we use some sort of local binning and scaling to overcome the anterior posterior issue (and prior to that we used a rudimentary implementation of splitting the bigLOTS into 3 regions). I feel like both these approaches are wrong. 
+If you've understood the report and the code, you would have noticed that we use some sort of local binning and scaling to overcome the anterior posterior issue. 
 
 Why do I say that? [The following text is just my assumption - I am just a master's student and I am saying this purely based on the little knowledge I have, it's your duty to verify what I say is correct as per the current literature and scientific consensus] 
 
