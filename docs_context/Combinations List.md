@@ -6,6 +6,7 @@ Individual Factors
 2. Nontarget Contrast (Faces and Limb)
 3. Session Count
 4. Cortical Surface - (Sulcal Depth + Thickness + Curvature)
+
 5a. Nontarget Contrast - Faces only
 5b. Nontarget Contrast - Limbs only
 6a. Cortical Surface - Sulcal Depth only
