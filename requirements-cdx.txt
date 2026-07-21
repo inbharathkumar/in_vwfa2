@@ -1,0 +1,16 @@
+matplotlib
+pandas
+numpy
+scipy
+scikit-learn
+seaborn
+nibabel
+nilearn
+kneed
+tvb-gdist
+statsmodels
+ipython
+ipywidgets
+pyarrow
+plotly
+kaleido==0.2.1

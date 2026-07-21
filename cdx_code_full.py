@@ -5,53 +5,6 @@
 import sys, types, warnings, os
 import time as _dbg_time; _dbg_t0 = _dbg_time.time()
 warnings.filterwarnings('ignore')
-
-# Local execution preflight: this repository is sometimes evaluated in minimal
-# Python environments where the scientific stack used by the original Colab
-# notebook is unavailable and network installs are blocked.  In that case, run
-# a lightweight stdlib-only diagnostic that still writes plot artifacts showing
-# that the run produced viewable results, then exit cleanly with instructions.
-def _cdx_dependency_report_and_exit(missing):
-    from collections import Counter
-    from pathlib import Path
-    from datetime import datetime
-    root_path = Path(os.environ.get('CDX_ROOT', Path(__file__).resolve().parent))
-    out = root_path / 'results' / ('cdx_code_full_dependency_report_' + datetime.utcnow().strftime('%Y%m%d_%H%M%S'))
-    out.mkdir(parents=True, exist_ok=True)
-    pngs = list((root_path / 'results_old').rglob('*.png')) if (root_path / 'results_old').exists() else []
-    counts = Counter(p.parts[1] if len(p.relative_to(root_path).parts) > 1 else 'root' for p in pngs)
-    labels = list(counts)[:12] or ['no_existing_pngs']
-    values = [counts[k] for k in labels] or [0]
-    maxv = max(values) or 1
-    width, height = 1000, 520
-    bar_w = max(20, int(780 / len(labels)))
-    bars = []
-    for i, (label, val) in enumerate(zip(labels, values)):
-        h = int((val / maxv) * 320)
-        x = 170 + i * bar_w
-        y = 420 - h
-        bars.append(f'<rect x="{x}" y="{y}" width="{bar_w-8}" height="{h}" fill="#4C78A8"/><text x="{x}" y="{y-8}" font-size="14">{val}</text><text transform="translate({x+5},455) rotate(35)" font-size="12">{label}</text>')
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
-<rect width="100%" height="100%" fill="white"/>
-<text x="40" y="45" font-size="26" font-family="Arial">cdx_code_full.py environment diagnostic plot</text>
-<text x="40" y="78" font-size="15" font-family="Arial">Missing Python packages: {', '.join(missing)}</text>
-<text x="40" y="108" font-size="15" font-family="Arial">Existing PNG plot counts in results_old by analysis directory</text>
-<line x1="150" y1="420" x2="950" y2="420" stroke="#333"/><line x1="150" y1="100" x2="150" y2="420" stroke="#333"/>
-{''.join(bars)}
-</svg>'''
-    (out / 'dependency_diagnostic_plot.svg').write_text(svg)
-    (out / 'index.html').write_text(f'<html><body><h1>cdx_code_full.py diagnostic results</h1><p>Missing packages: {', '.join(missing)}</p><img src="dependency_diagnostic_plot.svg"></body></html>')
-    (out / 'README.txt').write_text('Full scientific run skipped because dependencies are missing: ' + ', '.join(missing) + '\nGenerated SVG/HTML diagnostic plot artifacts in this directory.\n')
-    print(f'Full run skipped: missing dependencies: {missing}')
-    print(f'Diagnostic plot results saved to: {out}')
-    raise SystemExit(0)
-
-import importlib.util as _cdx_importlib_util
-_cdx_required = ['matplotlib', 'numpy', 'pandas', 'scipy', 'sklearn', 'seaborn', 'nibabel', 'nilearn', 'kneed', 'gdist', 'statsmodels', 'pyarrow']
-_cdx_missing = [m for m in _cdx_required if _cdx_importlib_util.find_spec(m) is None]
-if _cdx_missing:
-    _cdx_dependency_report_and_exit(_cdx_missing)
-
 import matplotlib; matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 _g = types.ModuleType('google'); _c = types.ModuleType('google.colab'); _o = types.ModuleType('google.colab.output')
